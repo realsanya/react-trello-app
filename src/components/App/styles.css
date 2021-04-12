@@ -1,0 +1,41 @@
+.app {
+  text-align: center;
+}
+
+.app-title { 
+  display: flex;
+  flex-direction: row;
+}
+
+.app-title-text {
+  line-height: 15vmin;
+  font-family: 'Rubik Medium';
+  font-size: 120px;
+  text-align: center;
+  align-items: center;
+  color: #FFF;
+}
+
+.app-logo {
+  height: 15vmin;
+  pointer-events: none;
+  margin-right: 40px;
+}
+
+.app-header {
+  background-color: #2D73D2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.app-link {
+  font-family: 'Rubik Light';
+  font-size: 5vmin;
+  color: #C1C6C9;
+  margin-top: 35px;
+}
