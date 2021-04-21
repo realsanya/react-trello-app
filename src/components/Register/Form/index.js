@@ -58,6 +58,10 @@ const Form = (props) => {
         setConfirmPassword(inputVal);
     };
 
+    const onDateOfBirthFocus = () => {
+        document.getElementById("dateOfBirth").type = "date";
+    };
+
     return (
         <>
             <styled.Fields>
@@ -82,10 +86,12 @@ const Form = (props) => {
                     type="email"
                     placeholder="Почта"/>
                 <styled.Input 
+                    id="dateOfBirth"
                     onChange={onDateOfBirthChange}
                     value={dateOfBirth}
                     ref={dateOfBirthRef}
-                    type="date"
+                    onFocus={onDateOfBirthFocus}
+                    // type="date"
                     placeholder="Дата рождения"/>
             </styled.Fields>
             <styled.Fields>
