@@ -1,16 +1,15 @@
-import { BrowserRouter, Route } from 'react-router-dom';
-import Main from '../Main';
-import Login from '../Login';
-import Register from '../Register';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import Container from '../Container';
 
-
-function App() {
+const App = (props) => {
+  console.log(props);
   return (
     <BrowserRouter>
-      {/* <Main /> */}
-      <Route path="/main" component={Main} />
-      <Route path="/signIn" component={Login} />
-      <Route path="/signUp" component={Register} />
+      <Provider store={props.store} >
+        <Container />
+      </Provider>
     </BrowserRouter>
   );
 }

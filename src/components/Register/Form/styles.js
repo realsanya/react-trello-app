@@ -1,29 +1,10 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
-    text-align: center;
-`;
-
-export const Header = styled.div`
-    background-color: #2D73D2;
-    min-height: 100vh;
+export const Fields = styled.div`
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 40px;
-    color: #FFF;
-    margin: 0;
-
-    h2 {
-        font-family: 'Rubik Light';
-        font-weight: 300;
-        font-size: 30px;
-        letter-spacing: 0.05em;
-        color: #FFF;
-        margin-top: 40px;
-    }
-`;
+    flex-direction: row;
+    jistify-content: between;
+`
 
 export const Input = styled.input`
     width: 500px;
@@ -36,7 +17,7 @@ export const Input = styled.input`
     font-weight: 300;
     color: #706767;
     padding:  5px 20px;
-    margin-top: 30px;
+    margin: 20px;
 
     ::placeholder,
     ::-webkit-input-placeholder {
@@ -50,15 +31,17 @@ export const Input = styled.input`
 
 export const Button = styled.div`
     display: flex;
-    width: 400px;
+    width: 500px;
     height: 80px;
     background-color: #96F7B8;
     font-family: 'Rubik Medium';
     font-weight: 400;
+    font-size: 35px;
     color: #FFF;
     border-radius: 25px;
     text-align: center;
     justify-content: center;
     align-items: center;
-    margin-top: 60px;
+    margin-top: 20px;
+    cursor: pointer;
 `;
