@@ -18,8 +18,6 @@ const Form = (props) => {
         send,
     } = props;
 
-    console.log(name);
-
     let nameRef = React.createRef();
     let surnameRef = React.createRef();
     let emailRef = React.createRef();
@@ -29,7 +27,6 @@ const Form = (props) => {
 
     const onNameChange = () => {
         const inputVal = nameRef.current.value;
-        console.log(inputVal);
         setName(inputVal);
     };
 

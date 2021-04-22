@@ -4,6 +4,7 @@ import Main from '../components/Main';
 import Root from '../components/Root';
 import Login from '../components/Login';
 import Register from '../components/Register';
+import Dashboard from '../components/Dashboard';
 
 const routesData = [
     {
@@ -25,6 +26,11 @@ const routesData = [
         path: "/signUp",
         isExact: true,
         render: () => <Register />
+    },
+    {
+        path: "/dashboard",
+        isExact: true,
+        render: () => <Dashboard />
     }
 ];
 

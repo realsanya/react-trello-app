@@ -32,12 +32,12 @@ const Register = (props) => {
     const sendRegister = () => {
         api()
           .post("/signUp", {
-            name: name,
-            surname: surname,
-            email: email,
-            dateOfBirth: dateOfBirth,
-            password: password,
-            confirmPassword: confirmPassword,
+            name,
+            surname,
+            email,
+            dateOfBirth,
+            password,
+            confirmPassword,
           })
           .then((response) => {
             if (response.data.isError) {
