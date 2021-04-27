@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as styled from './styles';
 
 const Form = (props) => {
@@ -18,41 +18,59 @@ const Form = (props) => {
         send,
     } = props;
 
-    let nameRef = React.createRef();
-    let surnameRef = React.createRef();
-    let emailRef = React.createRef();
-    let dateOfBirthRef = React.createRef();
-    let passwordRef = React.createRef();
-    let confirmPasswordRef = React.createRef();
+    const [nameValue, setNameValue] = useState(name);
+    const [surnameValue, setSurnameValue] = useState(surname);
+    const [emailValue, setEmailValue] = useState(email);
+    const [dateOfBirthValue, setDateOfBirthValue] = useState(dateOfBirth);
+    const [passwordValue, setPasswordValue] = useState(password);
+    const [confirmPasswordValue, setConfirmPasswordValue] = useState(confirmPassword);
 
-    const onNameChange = () => {
-        const inputVal = nameRef.current.value;
-        setName(inputVal);
+    const onNameChange = (ev) => {
+        setNameValue(ev.target.value);
     };
 
-    const onSurnameChange = () => {
-        const inputVal = surnameRef.current.value;
-        setSurname(inputVal);
+    const onSurnameChange = (ev) => {
+        setSurnameValue(ev.target.value);
     };
 
-    const onEmailChange = () => {
-        const inputVal = emailRef.current.value;
-        setEmail(inputVal);
+    const onEmailChange = (ev) => {
+        setEmailValue(ev.target.value);
     };
 
-    const onDateOfBirthChange = () => {
-        const inputVal = dateOfBirthRef.current.value;
-        setDateOfBirth(inputVal);
+    const onDateOfBirthChange = (ev) => {
+        setDateOfBirthValue(ev.target.value);
     };
 
-    const onPassword = () => {
-        const inputVal = passwordRef.current.value;
-        setPassword(inputVal);
+    const onPasswordChange = (ev) => {
+        setPasswordValue(ev.target.value);
     };
 
-    const onConfirmPassword = () => {
-        const inputVal = confirmPasswordRef.current.value;
-        setConfirmPassword(inputVal);
+    const onConfirmPasswordChange = (ev) => {
+        setConfirmPasswordValue(ev.target.value);
+    };
+
+    const onNameBlur = () => {
+        setName(nameValue);
+    };
+
+    const onSurnameBlur = () => {
+        setSurname(surnameValue);
+    };
+
+    const onEmailBlur = () => {
+        setEmail(emailValue);
+    };
+
+    const onDateOfBirthBlur = () => {
+        setDateOfBirth(dateOfBirthValue);
+    };
+
+    const onPasswordBlur = () => {
+        setPassword(passwordValue);
+    };
+
+    const onConfirmPasswordBlur = () => {
+        setConfirmPassword(confirmPasswordValue);
     };
 
     const onDateOfBirthFocus = () => {
@@ -63,47 +81,46 @@ const Form = (props) => {
         <>
             <styled.Fields>
                 <styled.Input 
+                    value={nameValue}
+                    type="text"
+                    placeholder="Имя" 
                     onChange={onNameChange}
-                    value={name}
-                    ref={nameRef}
-                    type="text"
-                    placeholder="Имя" />
+                    onBlur={onNameBlur} />
                 <styled.Input 
-                    onChange={onSurnameChange}
-                    value={surname}
-                    ref={surnameRef}
+                    value={surnameValue}
                     type="text"
-                    placeholder="Фамилия" />
+                    placeholder="Фамилия" 
+                    onChange={onSurnameChange} 
+                    onBlur={onSurnameBlur} />
             </styled.Fields>
             <styled.Fields>
                 <styled.Input 
-                    onChange={onEmailChange}
-                    value={email}
-                    ref={emailRef}
+                    value={emailValue}
                     type="email"
-                    placeholder="Почта"/>
+                    placeholder="Почта"
+                    onChange={onEmailChange}
+                    onBlur={onEmailBlur}/>
                 <styled.Input 
                     id="dateOfBirth"
-                    onChange={onDateOfBirthChange}
-                    value={dateOfBirth}
-                    ref={dateOfBirthRef}
+                    value={dateOfBirthValue}
+                    placeholder="Дата рождения"
                     onFocus={onDateOfBirthFocus}
-                    // type="date"
-                    placeholder="Дата рождения"/>
+                    onChange={onDateOfBirthChange}
+                    onBlur={onDateOfBirthBlur}/>
             </styled.Fields>
             <styled.Fields>
                 <styled.Input
-                    onChange={onPassword}
-                    value={password}
-                    ref={passwordRef} 
+                    value={passwordValue}
                     type="password"
-                    placeholder="Пароль" />
+                    placeholder="Пароль" 
+                    onChange={onPasswordChange}
+                    onBlur={onPasswordBlur}/>
                 <styled.Input 
-                    onChange={onConfirmPassword}
-                    value={confirmPassword}
-                    ref={confirmPasswordRef}
+                    value={confirmPasswordValue}
                     type="password"
-                    placeholder="Повторите пароль"/>
+                    placeholder="Повторите пароль"
+                    onChange={onConfirmPasswordChange}
+                    onBlur={onConfirmPasswordBlur}/>
             </styled.Fields>
             <styled.Button onClick={send}>Зарегистрироваться</styled.Button>
         </>

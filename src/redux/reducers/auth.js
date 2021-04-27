@@ -18,9 +18,9 @@ export const setLoginEmail = (email) => ({
 });
 
 export const SET_LOGIN_PASSWORD = 'SET_LOGIN_PASSWORD';
-export const setLoginPassword= (loginPassword) => ({
+export const setLoginPassword= (password) => ({
   type: SET_LOGIN_PASSWORD,
-  loginPassword,
+  password,
 });
 
 export const SET_LOGIN_ERROR = 'SET_LOGIN_ERROR';
@@ -38,14 +38,14 @@ export const setIsVerificationTokenOk= (isOk) => ({
 
 const initState = {
     userData: {
-      id: null,
+      // id: null,
       email: null,
       // role: 'USER',
       // state: null,
     },
     isAdmin: null,
-    email: '',
-    loginPassword: '',
+    loginEmail: "",
+    loginPassword: "",
     isError: null,
     error: null,
     isOk: null,
@@ -65,13 +65,13 @@ const authReducer = (state = initState, action) => {
       case SET_LOGIN_EMAIL: {
         return {
           ...state,
-          email: action.email,
+          loginEmail: action.loginEmail,
         };
       }
       case SET_LOGIN_PASSWORD: {
         return {
           ...state,
-          loginPassword: action.password,
+          loginPassword: action.loginPassword,
         };
       }
       case SET_LOGIN_ERROR: {

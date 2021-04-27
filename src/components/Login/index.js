@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -8,25 +9,19 @@ import {
     setUserData,
 } from '../../redux/reducers/auth';
 
+
 import api from '../../axios/api-config';
 import * as tokenService from "../../services/TokenService";
 import * as styled from './styles';
 import Form from './Form';
 
 
-const Login = (props) => {
-
-    const {
-      email,
-      password,
-      // role,
-    } = props;
-
-    const sendLogin = () => {
+class Login extends React.Component {
+     sendLogin = () => {
         api()
           .post("/signIn", {
-            email,
-            password,
+            email: this.props.loginEmail,
+            password: this.props.loginPassword,
             // role,
           })
           .then((response) => {
@@ -35,40 +30,40 @@ const Login = (props) => {
               setLoginError(message, true);
             } else {
               tokenService.setToken(token);
-              
-
-              // setUserData(
-              //   // userData.id,
-              //   userData.loginEmail,
-              //   // userData.role,
-              //   // userData.state
-              // );
+              setUserData(
+                // userData.id,
+                userData.email,
+                // userData.role,
+                // userData.state
+              );
               setLoginError(null, false);
             }
           });
       };
 
-
+  render () {
+    console.log(this.props.loginEmail);
     return ( 
-        <styled.Wrapper>
-            <styled.Header>
-                <h1>Авторизация</h1>
-                    <Form 
-                        { ...props }
-                        send={sendLogin} />
-                <h2> 
-                    Нет аккаунта? 
-                    <Link to="/signUp">Регистрация</Link>
-                </h2>
-            </styled.Header>
-        </styled.Wrapper>
+      <styled.Wrapper>
+        <styled.Header>          
+          <h1>Авторизация</h1>
+            <Form 
+              { ...this.props }
+              send={this.sendLogin} />
+            <h2> 
+              Нет аккаунта? 
+              <Link to="/signUp">Регистрация</Link>
+            </h2>
+        </styled.Header>
+      </styled.Wrapper>
     );
+  }
 }
 
 
 const mapStateToProps = (state) => {
     return {
-      email: state.auth.email,
+      loginEmail: state.auth.loginEmail,
       loginPassword: state.auth.loginPassword,
       // role: state.auth.role,
       isError: state.auth.isError,

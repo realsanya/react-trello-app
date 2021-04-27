@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import PrivateRoute from '../common/PrivateRoute';
 import Main from '../components/Main';
 import Root from '../components/Root';
 import Login from '../components/Login';
@@ -11,11 +12,6 @@ const routesData = [
         path: "/main",
         isExact: true,
         render: () => <Main />
-    },
-    {
-        path: "/",
-        isExact: true,
-        render: () => <Root />,
     },
     {
         path: "/signIn",
@@ -34,6 +30,14 @@ const routesData = [
     }
 ];
 
+const privateRoutesData = [
+    {
+      path: "/",
+      isExact: true,
+      component: <Root />,
+    },
+  ];
+
 const routesComponents = routesData.map((el) => (
     <Route
       key={el.path}
@@ -43,7 +47,13 @@ const routesComponents = routesData.map((el) => (
     />
 ));
 
-const routes = [...routesComponents];
+const privateRoutesComponents = privateRoutesData.map((elem) => (
+    <PrivateRoute key={elem.path} path={elem.path} exact={elem.isExact}>
+      {elem.component}
+    </PrivateRoute>
+  ));
+
+const routes = [...routesComponents, ...privateRoutesComponents];
 
 export const getAllRoutes = () => {
     return routes;

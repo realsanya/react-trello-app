@@ -1,49 +1,60 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import * as styled from './styles';
+import { Redirect } from "react-router-dom";
+import * as tokenService from "../../../services/TokenService";
 
 const Form = (props) => {
-
     const {
-        email,
+        loginEmail,
         loginPassword,
         setLoginEmail,
         setLoginPassword,
         send,
     } = props;
 
-    console.log(email);
-
-    let emailRef = React.createRef();
-    let passwordRef = React.createRef();
-
-    const onEmailChange = () => {
-        const inputVal = emailRef.current.value;
-        console.log(inputVal);
-        setLoginEmail(inputVal);
+    const [email, setEmail] = useState(loginEmail);
+    const [password, setPassword] = useState(loginPassword); 
+    
+    const onEmailChange = (ev) => {
+        console.log(ev.target.value);
+        setEmail(ev.target.value);
+    };
+    
+    const onPasswordChange = (ev) => {
+        setPassword(ev.target.value);
     };
 
-    const onPasswordChange = () => {
-        const inputVal = passwordRef.current.value;
-        console.log(inputVal);
-        setLoginPassword(inputVal);
-    };
+    const onEmailBlur = () => {
+        setLoginEmail(email);
+    }
+
+    const onPasswordBlur = () => {
+        setLoginPassword(password);
+    }
+
 
     return (
         <>
-            <styled.Input 
-                onChange={onEmailChange}
-                value={email}
-                ref={emailRef}
-                type="email"
-                placeholder="Почта" />
-            <styled.Input 
-                onChange={onPasswordChange}
-                value={loginPassword}
-                ref={passwordRef}
-                type="password"
-                placeholder="Пароль"/>
-            <styled.Button onClick={send}>Войти</styled.Button>
-        </>
+        {tokenService.isTokenPresent() ? (
+            <Redirect to={"/main" } />
+        ) : (
+            <>
+                <styled.Input 
+                    value={email}
+                    type="email"
+                    placeholder="Почта" 
+                    onChange={onEmailChange} 
+                    onBlur={onEmailBlur} />
+                <styled.Input 
+                    value={password}
+                    type="password"
+                    placeholder="Пароль"
+                    onChange={onPasswordChange} 
+                    onBlur={onPasswordBlur} />
+                <styled.Button onClick={send}>Войти</styled.Button>
+            </> 
+        )}
+      </>
     );
 }
 

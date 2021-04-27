@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import PrivateComponent from '../../common/PrivateComponent';
 import logo from './logo.svg';
 import './styles.css';
 
@@ -14,9 +15,9 @@ const Main = () => {
         </div>
         <Link
           className="app-link"
-          to="/signIn"
+          to="/"
         >
-          Создать проект
+          Создать проект          
         </Link>
       </header>
     </div>
