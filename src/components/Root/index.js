@@ -10,13 +10,13 @@ import Settings from '../Settings';
 const Root = () => {
     return (
         <Router>
-            <Sidebar/>
-            <Switch>
-                <Route path="/home" component={Home} />
-                <Route path="/dashboard" component={Dashboard} />
-                <Route path="/support" component={Support} /> 
-                <Route path="/settings" component={Settings} />
-            </Switch>
+                <Sidebar/>
+                <Switch>
+                    <Route path="/home" component={Home} />
+                    <Route path="/dashboard" component={Dashboard} />
+                    <Route path="/support" component={Support} /> 
+                    <Route path="/settings" component={Settings} />
+                </Switch>
         </Router>
     );
 };
