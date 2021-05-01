@@ -35,6 +35,7 @@ export const Image = styled.img`
     height: 30px;
     margin-left: 20px;
     align-items: center;
+    cursor: pointer;
 `;
 
 

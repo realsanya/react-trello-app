@@ -24,4 +24,7 @@ export const Action = styled.div`
     :hover {
         background-color: #1D5BAE;
     }
+    ${({ isActive }) => isActive && `
+        background-color: #1D5BAE;
+    `}
 `;

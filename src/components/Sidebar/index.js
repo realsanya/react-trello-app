@@ -3,23 +3,27 @@ import * as styled from './styles';
 
 import projectsIcon from './icons/projects.svg';
 import dashboardIcon from './icons/dashboard.svg';
-import chatIcon from './icons/chat.svg';
-import settingIcon from './icons/setting.svg';
+import supportIcon from './icons/support.svg';
+import settingsIcon from './icons/settings.svg';
 
 
-const Sidebar = (props) => {
-
+const Sidebar = () => {
+    const currentPath = window.location.pathname;
     return (
             <styled.Wrapper>
                 <styled.Actions>
-                    <Link to="/signUp">
-                        <styled.Action icon={projectsIcon} />
+                    <Link to="/home">
+                        <styled.Action icon={projectsIcon} isActive={currentPath === "/home"}/>
                     </Link>
                     <Link to="/dashboard">
-                        <styled.Action icon={dashboardIcon} />
+                        <styled.Action icon={dashboardIcon} isActive={currentPath === "/dashboard"}/>
                     </Link>
-                    <styled.Action icon={chatIcon} />
-                    <styled.Action icon={settingIcon} />
+                    <Link to="/support">
+                        <styled.Action icon={supportIcon} isActive={currentPath === "/support"}/>
+                    </Link>
+                    <Link to="/settings">
+                        <styled.Action icon={settingsIcon} isActive={currentPath === "/settings"}/>
+                    </Link>
                 </styled.Actions>
             </styled.Wrapper>
     );

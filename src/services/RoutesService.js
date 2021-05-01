@@ -5,7 +5,10 @@ import Main from '../components/Main';
 import Root from '../components/Root';
 import Login from '../components/Login';
 import Register from '../components/Register';
+import Home from '../components/Home';
 import Dashboard from '../components/Dashboard';
+import Support from '../components/Support';
+import Settings from '../components/Settings';
 
 const routesData = [
     {
@@ -24,9 +27,24 @@ const routesData = [
         render: () => <Register />
     },
     {
+      path: "/home",
+      isExact: true,
+      render: () => <Home />
+    },
+    {
         path: "/dashboard",
         isExact: true,
         render: () => <Dashboard />
+    },
+    {
+      path: "/support",
+      isExact: true,
+      render: () => <Support />
+    },
+    {
+      path: "/settings",
+      isExact: true,
+      render: () => <Settings />
     }
 ];
 
