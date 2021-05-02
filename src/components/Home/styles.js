@@ -17,6 +17,7 @@ export const Container = styled.div`
 export const Workspace = styled.div`
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     width: calc(100%-40px);
     height: 100%;
     background-color: #E9E2F4;

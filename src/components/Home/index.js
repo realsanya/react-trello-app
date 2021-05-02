@@ -17,6 +17,7 @@ const Home = () => {
                     <ProjectCard />
                     <ProjectCard />
                     <ProjectCard />
+                    <ProjectCard />
                 </styled.Workspace>
             </styled.Container>
         </styled.Wrapper>
