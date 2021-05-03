@@ -8,12 +8,20 @@ export const Wrapper = styled.div`
     flex-direction: row;
     justify-content: space-between;
     margin: 60px;
+`;
+
+export const DashboardTitle = styled.div`
+    display: flex;
 
     .project-name {
         font-family: 'Rubik Medium';
         font-weight: 400;
         font-size: 45px;
         color: #000;
+    }
+
+    img {
+        margin-left: 30px;
     }
 `;
 

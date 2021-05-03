@@ -7,18 +7,26 @@ const Header = (props) => {
     const {
         title,
         text,
+        icon,
     } = props;
+
+    const addProject = () => {
+        console.log('add');
+    }
 
     return (
         <styled.Wrapper>
-            <div className="project-name">
-                {title}
-            </div>
-        <styled.DashboardUser>
-            <div className="dashboard-user-role">
-                {text}
-            </div>
-            <img src={avatar}/>
+            <styled.DashboardTitle>
+                <div className="project-name">
+                    {title}
+                </div>
+                <img src={icon} onClick={addProject} />
+            </styled.DashboardTitle>
+            <styled.DashboardUser>
+                <div className="dashboard-user-role">
+                    {text}
+                </div>
+                <img src={avatar}/>
             </styled.DashboardUser>
         </styled.Wrapper>
     );
@@ -27,6 +35,12 @@ const Header = (props) => {
 Header.propTypes = {
     title: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
+    icon: PropTypes.string,
 }
+
+Header.defaultProps = {
+    icon: '',
+}
+
 
 export default Header;

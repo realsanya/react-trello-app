@@ -22,5 +22,6 @@ export const Workspace = styled.div`
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
     overflow-y: auto;
+    justify-content: center;
     margin: 0 20px;
 `;
