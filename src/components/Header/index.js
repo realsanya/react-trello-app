@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as styled from './styles';
-import avatar from './default.svg';
-import addIcon from '../Home/add.svg';
+import avatar from './icons/default.svg';
+import addIcon from './icons/add.svg';
 
 const Header = (props) => {
     const {
