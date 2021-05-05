@@ -2,17 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as styled from './styles';
 import avatar from './default.svg';
+import addIcon from '../Home/add.svg';
 
 const Header = (props) => {
     const {
         title,
         text,
-        icon,
+        isHome,
+        setModalActive,
     } = props;
-
-    const addProject = () => {
-        console.log('add');
-    }
 
     return (
         <styled.Wrapper>
@@ -20,7 +18,9 @@ const Header = (props) => {
                 <div className="project-name">
                     {title}
                 </div>
-                <img src={icon} onClick={addProject} />
+                {isHome && 
+                    <img src={addIcon} onClick={() => setModalActive(true)}/>
+                }  
             </styled.DashboardTitle>
             <styled.DashboardUser>
                 <div className="dashboard-user-role">
@@ -34,12 +34,15 @@ const Header = (props) => {
 
 Header.propTypes = {
     title: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-    icon: PropTypes.string,
+    text: PropTypes.string,
+    isHome: PropTypes.bool,
+    setModalActive: PropTypes.func,
 }
 
 Header.defaultProps = {
-    icon: '',
+    text: '',
+    isHome: false,
+    setModalActive: () => {},
 }
 
 
