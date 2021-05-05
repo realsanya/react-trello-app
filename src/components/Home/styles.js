@@ -25,4 +25,27 @@ export const Workspace = styled.div`
     border-top-left-radius: 20px;
     overflow-y: auto;
     margin: 0 20px;
+
+    ${({isNotFound}) => isNotFound && `
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    `}
+
+    img {
+        width: 200px;
+        height: 200px;
+    }
+
+    p {  
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+        font-family: 'Rubik Medium';
+        font-weight: 400;
+        font-size: 20px;
+        margin: 40px 80px;
+        color: #C1C6C9;
+    }
+
 `;

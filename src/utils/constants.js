@@ -16,7 +16,7 @@ export const ACTIVE_STATUS = {
     color: "#ADC9E5",
 };
 // TODO посмотреть названия статусов на бэке 
-export const STOP_STATUS = {
+export const COMPLETED_STATUS = {
     title: "Завершена",
     titleColor: "#845EC3",
     color: "#CEBFE6",

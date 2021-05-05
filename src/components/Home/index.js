@@ -1,58 +1,55 @@
 import React from 'react';
 import api from  '../../axios/api-config';
-import { setAllProjects, setProjects } from '../../redux/reducers/data';
+import { setProjects } from '../../redux/reducers/data';
+import * as tokenService from "../../services/TokenService";
 import { connect } from 'react-redux';
 import * as styled from './styles';
 import Sidebar from '../Sidebar';
 import Header from '../Header';
 import ProjectCard from '../ProjectCard';
 import addIcon from './add.svg';
+import notFoundIcon from './notFound.svg';
+import { withRouter } from 'react-router';
 
 class Home extends React.Component {
-    getAllProjects = () => {
-        api()
-          .get("/proj")
-          .then((response) => {
-            this.props.setProjects(response.data.content);
-        });
-    };
-
-    // TODO
     getProjects = () => {
         api()
-          .get("/projects", {
-            userId: 6,
-            // role,
-          })
-          .then((response) => {
+        .get("/projects/" + this.props.match.params.userId)
+        .then((response) => {
             this.props.setProjects(response.data.content);
         });
     };
 
     componentDidMount() {
-       this.getAllProjects();
-        // this.getProjects();
+        this.getProjects();
     }
-    
-      render() {
-        //   const projects = this.props.allProjects;
-          const projects = this.props.projects;
-
-          return (
+      
+    render() {
+        const { userInfo } = this.props;
+        const projects = this.props.projects;
+        return (
               <styled.Wrapper>
                   <Sidebar />
                   <styled.Container>
                       <Header 
                           title="Главная"
-                          text="Александра"
+                          text={userInfo.name}
                           icon={addIcon}/>
-                      <styled.Workspace>
+                    {projects.length !== 0 ? (
+                        <styled.Workspace>
                           {projects.map((project) => {
                               return (
                                   <ProjectCard key={project.id} data={project} />
                               );
                           })}
-                      </styled.Workspace>
+                        </styled.Workspace>
+                    ) : (
+                        <styled.Workspace isNotFound>
+                            <img src={notFoundIcon}/>
+                            <p> Существующих проектов нет. 
+                                Не расстраивайтесь! Всё еще впереди :)</p>
+                        </styled.Workspace>
+                    )}
                   </styled.Container>
               </styled.Wrapper>
           );
@@ -61,9 +58,13 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-    //   allProjects: state.data.projects,
-      projects: state.data.projects,
+        userInfo: state.auth.userData,
+        projects: state.data.projects,
     };
 };
 
-export default connect(mapStateToProps, { setAllProjects, setProjects })(Home);
+const mapDispatchToProps = {
+    setProjects
+};
+
+export default connect(mapStateToProps, mapDispatchToProps) (withRouter(Home));

@@ -27,7 +27,7 @@ const routesData = [
         render: () => <Register />
     },
     {
-      path: "/home",
+      path: "/home/:userId",
       isExact: true,
       render: () => <Home />
     },
