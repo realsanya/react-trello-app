@@ -55,6 +55,7 @@ const initState = {
   confirmPassword: '',
   name: '',
   surname: '',
+  dateOfBirth: '',
   isError: false,
   error: null,
   successMessage: null,

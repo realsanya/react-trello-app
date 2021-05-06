@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import api from  '../../axios/api-config';
-import { 
-    setProjects, 
-    setName,
-    setDescription,
-    setDashboard,
-} from '../../redux/reducers/data';
+import * as data from '../../redux/reducers/data';
+import * as tokenService from "../../services/TokenService";
+
 
 import Sidebar from '../Sidebar';
 import Header from '../Header';
@@ -22,23 +21,26 @@ const Home =  (props) => {
     const [modalActive, setModalActive] = useState(false);
 
     const {
+        userId,
+        userData,
         name, 
         description,
         projects,
+        setProjects,
     } = props;
 
-    const userId = 2;
 
     const getProjects = () => {
+        console.log(userData.id);
         api()
-        .get("/projects",  {
-            params: {
-              userId: 2
-            }
-        })
-        .then((response) => {
-            setProjects(response.data.content);
-        });
+            .get("/projects",  {
+                params: {
+                userId,
+                }
+            })
+            .then((response) => {
+                setProjects(response.data.content);
+            });
     };
 
     const addProject = () => {
@@ -53,7 +55,8 @@ const Home =  (props) => {
 
     useEffect(() => {
         getProjects();
-    });
+        console.log(userId);
+    }, []);
 
 
     const renderCreateProjectModal = () => {
@@ -68,33 +71,39 @@ const Home =  (props) => {
     };
     
     return (
-        <styled.Wrapper>
-            <Sidebar />
-                <styled.Container>
-                  <Header 
-                    title="Главная"
-                    text="Александра"
-                    setModalActive={setModalActive}
-                    isHome
-                    />
-                    {projects.length !== 0 ? (
-                        <styled.Workspace>
-                            {projects.map((project) => {
-                                return (
-                                    <ProjectCard key={project.id} data={project} />
-                                );
-                            })}
-                        </styled.Workspace>
-                    ) : (
-                        <styled.Workspace isNotFound>
-                            <img src={notFoundIcon}/>
-                            <p> Существующих проектов нет. 
-                                Не расстраивайтесь! Всё еще впереди :)</p>
-                        </styled.Workspace>
-                    )}
-                </styled.Container>
-            {renderCreateProjectModal()}
-        </styled.Wrapper>
+        <>
+        {tokenService.isTokenPresent() ? (
+            <styled.Wrapper>
+                <Sidebar />
+                    <styled.Container>
+                    <Header 
+                        title="Главная"
+                        text={userData.name}
+                        setModalActive={setModalActive}
+                        isHome
+                        />
+                        {projects.length !== 0 ? (
+                            <styled.Workspace>
+                                {projects.map((project) => {
+                                    return (
+                                        <ProjectCard key={project.id} data={project} />
+                                    );
+                                })}
+                            </styled.Workspace>
+                        ) : (
+                            <styled.Workspace isNotFound>
+                                <img src={notFoundIcon}/>
+                                <p> Существующих проектов нет. 
+                                    Не расстраивайтесь! Всё еще впереди :)</p>
+                            </styled.Workspace>
+                        )}
+                    </styled.Container>
+                {renderCreateProjectModal()}
+            </styled.Wrapper>
+        ) : (
+            <Redirect to={"/signIn" } />
+        )}
+        </>
     );
 }
 
@@ -108,11 +117,13 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = {
-    setProjects,
-    setName,
-    setDescription,
-    setDashboard,
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setProjects: bindActionCreators(data.setProjects, dispatch),
+        setName: bindActionCreators(data.setName, dispatch),
+        setDescription: bindActionCreators(data.setDescription, dispatch),
+        setDashboard: bindActionCreators(data.setDashboard, dispatch),
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps) (Home);

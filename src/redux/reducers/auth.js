@@ -4,18 +4,26 @@ export const SET_LOGIN_EMAIL = 'SET_LOGIN_EMAIL';
 export const SET_LOGIN_PASSWORD = 'SET_LOGIN_PASSWORD';
 export const SET_LOGIN_ERROR = 'SET_LOGIN_ERROR';
 export const SET_IS_VERIFICATION_TOKEN_OK = 'SET_IS_VERIFICATION_TOKEN_OK';
+export const SET_USER_NAME = 'SET_USER_NAME';
+export const SET_USER_SURNAME = 'SET_USER_SURNAME';
+export const SET_USER_DATE_OF_BIRTH = 'SET_USER_DATE_OF_BIRTH';
 
 const initState = {
   userData: {
     id: null,
     email: null,
     name: null,
+    surname: null,
+    dateOfBirth: null,
     // role: 'USER',
     // state: null,
   },
+  name: '',
+  surname: '',
+  dateOfBirth: '',
   isAdmin: null,
-  loginEmail: "",
-  loginPassword: "",
+  loginEmail: '',
+  loginPassword: '',
   isError: null,
   error: null,
   isOk: null,
@@ -57,6 +65,24 @@ const authReducer = (state = initState, action) => {
           isOk: action.isOk,
         };
       }
+      case SET_USER_NAME: {
+        return {
+          ...state,
+          name: action.name,
+        };
+      }
+      case SET_USER_SURNAME: {
+        return {
+          ...state,
+          surname: action.surname,
+        };
+      }
+      case SET_USER_DATE_OF_BIRTH: {
+        return {
+          ...state,
+          dateOfBirth: action.dateOfBirth,
+        }
+      }
       default: {
         return {
           ...state,
@@ -66,12 +92,14 @@ const authReducer = (state = initState, action) => {
 };
 
 
-export const setUserData= (id, email, name) => ({
+export const setUserData= (id, email, name, surname, dateOfBirth) => ({
   type: SET_USER_DATA,
   userData: {
     id,
     email,
     name,
+    surname,
+    dateOfBirth,
     // role,
     // state,
   },
@@ -99,6 +127,20 @@ export const setIsVerificationTokenOk= (isOk) => ({
   isOk,
 });
 
+export const setUserName = (name) => ({
+  type: SET_USER_NAME,
+  name,
+});
+
+export const setUserSurname = (surname) => ({
+  type: SET_USER_NAME,
+  surname,
+});
+
+export const setUserDateOfBirth = (dateOfBirth) => ({
+  type: SET_USER_DATE_OF_BIRTH,
+  dateOfBirth,
+});
 
 
 export default authReducer;

@@ -1,17 +1,24 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+
 import * as styled from './styles';
 import Sidebar from '../Sidebar';
 import Header from '../Header';
 import notFoundIcon from './notFound.svg';
 
-const Support =  () => {
+const Support =  (props) => {
+
+    const {
+        userData
+    } = props;
+    
     return (
         <styled.Wrapper>
             <Sidebar />
             <styled.Container>
                 <Header 
                     title="Поддержка" 
-                    text="Александра"/>
+                    text={userData.name} />
                 <styled.Workspace>
                     <img src={notFoundIcon}/>
                     <p>Данная страница находится на стадии разработки. 
@@ -21,6 +28,13 @@ const Support =  () => {
             </styled.Container>
         </ styled.Wrapper>
     );
-}
+};
 
-export default Support;
+const mapStateToProps = (state) => {
+    return {
+        userData: state.auth.userData,
+    };
+};
+
+
+export default connect(mapStateToProps, {}) (Support);

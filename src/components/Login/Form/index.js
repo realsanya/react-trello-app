@@ -1,10 +1,12 @@
 import React, { useRef, useState } from 'react';
-import * as styled from './styles';
 import { Redirect } from "react-router-dom";
 import * as tokenService from "../../../services/TokenService";
 
+import * as styled from './styles';
+
 const Form = (props) => {
     const {
+        id,
         loginEmail,
         loginPassword,
         setLoginEmail,
@@ -32,11 +34,10 @@ const Form = (props) => {
         setLoginPassword(password);
     }
 
-
     return (
         <>
         {tokenService.isTokenPresent() ? (
-            <Redirect to={"/main" } />
+            <Redirect to={"/home" } />
         ) : (
             <>
                 <styled.Input 

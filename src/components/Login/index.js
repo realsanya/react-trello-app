@@ -1,13 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import {
-    setLoginEmail,
-    setLoginPassword,
-    setLoginError,
-    setUserData,
-} from '../../redux/reducers/auth';
+import * as auth from '../../redux/reducers/auth';
 
 
 import api from '../../axios/api-config';
@@ -16,23 +12,35 @@ import * as styled from './styles';
 import Form from './Form';
 
 
-class Login extends React.Component {
-     sendLogin = () => {
+const Login = (props) => {
+
+  const {
+    loginEmail,
+    loginPassword,
+    setLoginError,
+    setUserData,
+  } = props;
+     
+  const sendLogin = () => {
         api()
           .post("/signIn", {
-            email: this.props.loginEmail,
-            password: this.props.loginPassword,
-            // role,
+            email: loginEmail,
+            password: loginPassword,
+            role: "ADMIN",
           })
           .then((response) => {
             const { token, isError, message, userData } = response.data;
+            console.log(userData);
             if (isError) {
               setLoginError(message, true);
             } else {
               tokenService.setToken(token);
               setUserData(
-                // userData.id,
+                userData.id,
                 userData.email,
+                userData.name,
+                userData.surname,
+                userData.dateOfBirth,
                 // userData.role,
                 // userData.state
               );
@@ -41,15 +49,13 @@ class Login extends React.Component {
           });
       };
 
-  render () {
-    console.log(this.props.loginEmail);
     return ( 
       <styled.Wrapper>
         <styled.Header>          
           <h1>Авторизация</h1>
             <Form 
-              { ...this.props }
-              send={this.sendLogin} />
+              { ...props }
+              send={sendLogin} />
             <h2> 
               Нет аккаунта? 
               <Link to="/signUp">Регистрация</Link>
@@ -58,8 +64,6 @@ class Login extends React.Component {
       </styled.Wrapper>
     );
   }
-}
-
 
 const mapStateToProps = (state) => {
     return {
@@ -68,15 +72,17 @@ const mapStateToProps = (state) => {
       // role: state.auth.role,
       isError: state.auth.isError,
       error: state.auth.error,
-      // id: state.auth.userData.id,
+      id: state.auth.userData.id,
     };
 };
 
-const mapDispatchToProps = {
-    setLoginEmail,
-    setLoginPassword,
-    setLoginError,
-    setUserData,
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setLoginEmail: bindActionCreators(auth.setLoginEmail, dispatch),
+    setLoginPassword: bindActionCreators(auth.setLoginPassword, dispatch),
+    setLoginError: bindActionCreators(auth.setLoginError, dispatch),
+    setUserData: bindActionCreators(auth.setUserData, dispatch),
+  };
 };
   
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

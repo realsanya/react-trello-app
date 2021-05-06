@@ -24,7 +24,7 @@ export const Header = styled.div`
 `;
 
 export const Description = styled.div`
-    height: 130px;
+    height: 110px;
     font-family: 'Rubik Light';
     font-style: normal;
     font-weight: normal;
