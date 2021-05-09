@@ -19,16 +19,19 @@ export const setDescription = (description) => ({
 });
 
 export const SET_DASHBOARD = "SET_DASHBOARD";
-export const setDashboard = (dashboard) => ({
+export const setDashboard = (dashboardId) => ({
     type: SET_DASHBOARD,
-    dashboard,
+    dashboardId,
 });
 
 const initState = {
     projects: [],
     name: "",
     description: "",
-    dashboard: null,
+    dashboardId: null,
+    // dashboard: {
+    //     id: null,
+    // },
 };
 
 //---------- REDUCER ----------
@@ -55,7 +58,7 @@ const dataReducer = (state = initState, action) => {
         case SET_DASHBOARD: {
             return {
                 ...state,
-                dashboard: action.dashboard,
+                dashboardId: action.dashboardId,
             };
         }
         default: {

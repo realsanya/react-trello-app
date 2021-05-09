@@ -1,68 +1,101 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect, Link } from "react-router-dom";
+import api from  '../../axios/api-config';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as data from '../../redux/reducers/data';
 
 import * as styled from './styles';
+import Modal from '../Modal';
 
-import api from  '../../axios/api-config';
-import { setDashboard } from '../../redux/reducers/data';
 
 const ProjectCard = (props) => {
+
     const {
-        data, 
+        id,
+        data,
+        userData, 
+        dashboardId,
+        setDashboard,
     } = props;
 
+    const [modalActive, setModalActive] = useState(false);
+
     const getDashboard = () => {
+        console.log('get dash');
         api()
         .get("/dashboard",  {
             params: {
-                projectId: data.id,
-                userId: 1
+                projectId: id,
+                userId: userData.id,
             }
         })
         .then((response) => {
-            setDashboard(response.data.content);
+            setDashboard(response.data.id);
         });
     }
 
-    const openDashboard = () => {
-        console.log('open dash');
-        getDashboard();
+    const postDelete = () => {
+        api()
+        .post("/project/delete",  {
+            id,
+        })
     }
 
-    const addMember = () =>{ 
-        console.log(data.id);
+    const addMember = () => {
+        console.log('add member');
     }
-    
+
+    const deleteProject = () => {
+        if (userData.role !== 'ADMIN') {
+            setModalActive(true);
+        } else {
+            postDelete();
+        }
+    }
+
+    const renderHaveNotAccessModal = () => {
+       if (!modalActive) return null;
+       return (
+           <Modal active={modalActive} setActive={setModalActive}>
+               <styled.Alert>
+                  <p> У вас недостаточно прав :( </p>
+               </styled.Alert>
+           </Modal>
+       );
+    }
+
     return (
-        <styled.Wrapper onClick={openDashboard}>
-            <styled.Header>
-                {data.name}
+        <styled.Wrapper>
+            <styled.Header onClick={getDashboard}>
+                <Link to={{pathname: `/dashboard/${id}/${dashboardId}`}}> {data.name} </Link>
             </styled.Header>
             <styled.Description>
                 {data.description}
             </styled.Description>
             <styled.Actions>
                 <styled.Action onClick={addMember}>Добавить участников</styled.Action>
-                <styled.Action>Удалить</styled.Action>
+                <styled.Action onClick={deleteProject}>Удалить</styled.Action>
             </styled.Actions>
+            {renderHaveNotAccessModal()}
         </styled.Wrapper>
     );
 }
 
-ProjectCard.propsType = {
-    data: PropTypes.shape().isRequired,
-}
-
-
 const mapStateToProps = (state) => {
     return {
-        dashboard: state.data.dashboard,
+        userData: state.auth.userData,
+        dashboardId: state.data.dashboardId,
+        description: state.data.description,
+        name: state.data.name,
     };
 };
 
-const mapDispatchToProps = {
-    setDashboard,
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setDashboard: bindActionCreators(data.setDashboard, dispatch),
+    }
 };
 
 

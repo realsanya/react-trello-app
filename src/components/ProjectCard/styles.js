@@ -17,6 +17,7 @@ export const Header = styled.div`
     line-height: 30px;
     color: #000;
     border-bottom: 3px solid #E5E5E5;
+    cursor: pointer;
 `;
 
 export const Description = styled.div`
@@ -47,8 +48,21 @@ export const Action = styled.div`
     color: #CCCCCC;
     margin: 10px 0;
     
-    :hover{ 
+    :hover { 
         cursor: pointer;
         text-decoration: underline;
+    }
+`;
+
+export const Alert = styled.div`
+    height: 60px;
+    p {
+        font-family: 'Rubik Medium';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 28px;
+        line-height: 32px;
+        letter-spacing: 0.02em;
+        color: red !important;
     }
 `;

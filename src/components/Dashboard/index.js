@@ -30,29 +30,15 @@ const Dashboard = (props) => {
         taskDescription,
         taskDeadline,
         setTasks, 
-        setDashboard,
+        dashboardId,
     } = props;
 
+    let urlElements = window.location.href.split('/');
+    const projectId = urlElements[4];
+
     const [modalActive, setModalActive] = useState(false);
-    const projectId = 6;
-    const dashboardId = 1;
 
-
-
-   const getDashboard = () => {
-        api()
-            .get("/dashboard",  {
-               params: {
-                   projectId,
-                   userId,
-               }
-            })
-            .then((response) => {
-                setDashboard(response.data.content);
-        });
-   }
-
-   const getTasks = () => {
+    const getTasks = () => {
         api()
             .get("/task/all",  {
             params: {
@@ -65,7 +51,6 @@ const Dashboard = (props) => {
    }
 
    useEffect(() => {
-        getDashboard();
         getTasks();
    }, [])
 
@@ -96,7 +81,7 @@ const Dashboard = (props) => {
                 <styled.Container>
                     <Header 
                         title="Новый проект"
-                        text="Разработчик"
+                        text={userInfo.role === 'USER' ? "Разработчик" : "Администратор"}
                         setModalActive={setModalActive} 
                         isDashboard
                     />
@@ -121,7 +106,7 @@ const mapStateToProps = (state) => {
       userId: state.auth.userData.id,
       userInfo: state.auth.userData,
       projects: state.data.projects,
-      dashboard: state.data.dashboard,
+      dashboardId: state.data.dashboardId,
 
       tasks: state.task.tasks,
       taskName: state.task.taskName,

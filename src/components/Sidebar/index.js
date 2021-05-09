@@ -9,14 +9,15 @@ import settingsIcon from './icons/settings.svg';
 
 const Sidebar = () => {
     const currentPath = window.location.pathname;
+
     return (
             <styled.Wrapper>
                 <styled.Actions>
                     <Link to="/home">
                         <styled.Action icon={projectsIcon} isActive={currentPath === "/home"}/>
                     </Link>
-                    <Link to="/dashboard">
-                        <styled.Action icon={dashboardIcon} isActive={currentPath === "/dashboard"}/>
+                    <Link to={ "/dashboard"} >
+                        <styled.Action icon={dashboardIcon} isActive={currentPath.includes("/dashboard")} />
                     </Link>
                     <Link to="/support">
                         <styled.Action icon={supportIcon} isActive={currentPath === "/support"}/>

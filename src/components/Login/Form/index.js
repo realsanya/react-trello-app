@@ -18,7 +18,6 @@ const Form = (props) => {
     const [password, setPassword] = useState(loginPassword); 
     
     const onEmailChange = (ev) => {
-        console.log(ev.target.value);
         setEmail(ev.target.value);
     };
     

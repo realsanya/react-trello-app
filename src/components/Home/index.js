@@ -31,7 +31,6 @@ const Home =  (props) => {
 
 
     const getProjects = () => {
-        console.log(userData.id);
         api()
             .get("/projects",  {
                 params: {
@@ -44,20 +43,18 @@ const Home =  (props) => {
     };
 
     const addProject = () => {
-        console.log('create');
         api()
-            .post("/add",  {
+            .post("/project/add",  {
                 name,
                 description,
                 userId,
-            })
+        });
+        // TODO close modal window
     };
 
     useEffect(() => {
         getProjects();
-        console.log(userId);
     }, []);
-
 
     const renderCreateProjectModal = () => {
         if (!modalActive) return null;
@@ -86,7 +83,7 @@ const Home =  (props) => {
                             <styled.Workspace>
                                 {projects.map((project) => {
                                     return (
-                                        <ProjectCard key={project.id} data={project} />
+                                        <ProjectCard key={project.id} id={project.id} data={project} />
                                     );
                                 })}
                             </styled.Workspace>

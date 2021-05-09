@@ -32,7 +32,7 @@ const routesData = [
       render: () => <Home />
     },
     {
-        path: "/dashboard",
+        path: "/dashboard/:projectId/:dashboardId",
         isExact: true,
         render: () => <Dashboard />
     },

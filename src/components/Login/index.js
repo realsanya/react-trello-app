@@ -26,11 +26,10 @@ const Login = (props) => {
           .post("/signIn", {
             email: loginEmail,
             password: loginPassword,
-            role: "ADMIN",
+            // role: "ADMIN",
           })
           .then((response) => {
             const { token, isError, message, userData } = response.data;
-            console.log(userData);
             if (isError) {
               setLoginError(message, true);
             } else {
@@ -41,7 +40,7 @@ const Login = (props) => {
                 userData.name,
                 userData.surname,
                 userData.dateOfBirth,
-                // userData.role,
+                userData.role,
                 // userData.state
               );
               setLoginError(null, false);

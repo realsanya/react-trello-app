@@ -3,10 +3,7 @@ import * as styled from './styles';
 
 const Form = (props) => {
     const {
-        name,
-        surname,
-        email,
-        dateOfBirth,
+        userData,
         setName,
         setSurname,
         setEmail,
@@ -15,10 +12,10 @@ const Form = (props) => {
         logout,
     } = props;
 
-    const [nameValue, setNameValue] = useState(name);
-    const [surnameValue, setSurnameValue] = useState(surname);
-    const [emailValue, setEmailValue] = useState(email);
-    const [dateOfBirthValue, setDateOfBirthValue] = useState(dateOfBirth);
+    const [nameValue, setNameValue] = useState(userData.name);
+    const [surnameValue, setSurnameValue] = useState(userData.surname);
+    const [emailValue, setEmailValue] = useState(userData.email);
+    const [dateOfBirthValue, setDateOfBirthValue] = useState(userData.dateOfBirth.toString());
 
     const onNameChange = (ev) => {
         setNameValue(ev.target.value);

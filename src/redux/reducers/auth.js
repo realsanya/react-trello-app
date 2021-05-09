@@ -15,7 +15,7 @@ const initState = {
     name: null,
     surname: null,
     dateOfBirth: null,
-    // role: 'USER',
+    role: null,
     // state: null,
   },
   name: '',
@@ -92,7 +92,7 @@ const authReducer = (state = initState, action) => {
 };
 
 
-export const setUserData= (id, email, name, surname, dateOfBirth) => ({
+export const setUserData= (id, email, name, surname, dateOfBirth, role) => ({
   type: SET_USER_DATA,
   userData: {
     id,
@@ -100,7 +100,7 @@ export const setUserData= (id, email, name, surname, dateOfBirth) => ({
     name,
     surname,
     dateOfBirth,
-    // role,
+    role,
     // state,
   },
 });
