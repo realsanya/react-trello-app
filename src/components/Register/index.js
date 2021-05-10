@@ -66,7 +66,7 @@ const Register = (props) => {
           console.log('Image URL: ' + profile.getImageUrl())
           console.log('Email: ' + profile.getEmail())
 
-          setEmailGoogle(profile.getEmail());
+ 
     
           // токен
           const id_token = googleUser.getAuthResponse().id_token;
