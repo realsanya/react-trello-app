@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import * as styled from './styles';
 import dateIcon from './icons/date.svg';
 import attachmentsIcon from './icons/attachments.svg';
 import commentsIcon from './icons/comments.svg';
+import Modal from '../Modal';
+import TaskView from './TaskView';
 
 const TaskCard = (props) => {
 
@@ -11,10 +13,22 @@ const TaskCard = (props) => {
         task
     } = props;
 
+    const [taskViewModal, setTaskViewModal] = useState(false);
+
+    const renderTaskView = () => {
+        console.log('render');
+        if (!taskViewModal) return null;
+        return (
+            <Modal active={taskViewModal} setActive={setTaskViewModal}>
+                <TaskView task={task} />
+            </Modal>
+        );
+    };
+
 
     return (
         <styled.Wrapper {...props}>
-            <styled.Header>
+            <styled.Header onClick={() => setTaskViewModal(true)}>
                 {task.name}
             </styled.Header>
             <styled.Description>
@@ -34,6 +48,7 @@ const TaskCard = (props) => {
                     <p>2</p>
                 </div>
             </styled.Info>
+            {renderTaskView()}
         </styled.Wrapper>
     );
 }

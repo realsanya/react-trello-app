@@ -12,6 +12,12 @@ export const setName = (name) => ({
     name,
 });
 
+export const ADD_MEMBER_TO_PROJECT = "ADD_MEMBER_TO_PROJECT";
+export const setMemberEmail = (memberEmail) => ({
+    type: ADD_MEMBER_TO_PROJECT,
+    memberEmail,
+});
+
 export const SET_PROJECT_DESC = "SET_PROJECT_DESC";
 export const setDescription = (description) => ({
     type: SET_PROJECT_DESC,
@@ -26,9 +32,10 @@ export const setDashboard = (dashboardId) => ({
 
 const initState = {
     projects: [],
-    name: "",
-    description: "",
+    name: '',
+    description: '',
     dashboardId: null,
+    memberEmail: '',
     // dashboard: {
     //     id: null,
     // },
@@ -48,6 +55,12 @@ const dataReducer = (state = initState, action) => {
                 ...state,
                 name: action.name,
             };
+        }
+        case ADD_MEMBER_TO_PROJECT: {
+            return {
+                ...state,
+                memberEmail: action.memberEmail,
+            }
         }
         case SET_PROJECT_DESC: {
             return {

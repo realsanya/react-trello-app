@@ -2,12 +2,14 @@ export const SET_TASKS = "SET_TASKS";
 export const SET_TASK_NAME = "SET_TASK_NAME";
 export const SET_TASK_DESCRIPTION = "SET_TASK_DESCRIPTION";
 export const SET_TASK_DEADLINE = "SET_TASK_DEADLINE";
+export const SET_CHECK_ITEMS="SET_CHECK_ITEMS";
 
 const initState = {
     tasks: [],
     taskName: "",
     taskDescription: "",
     taskDeadLine: "",
+    checkItems: [],
 };
 
 export const setTasks = (tasks) => ({
@@ -29,6 +31,11 @@ export const setTaskDeadline = (taskDeadLine) => ({
     type: SET_TASK_DEADLINE,
     taskDeadLine,
 });
+
+export const setCheckItems = (checkItems) => ({
+    type: SET_CHECK_ITEMS,
+    checkItems,
+})
 
 //---------- REDUCER ----------
 const taskReducer = (state = initState, action) => {
@@ -55,6 +62,12 @@ const taskReducer = (state = initState, action) => {
             return {
                 ...state,
                 taskDeadLine: action.taskDeadLine,
+            }
+        }
+        case SET_CHECK_ITEMS: {
+            return {
+                ...state,
+                checkItems: [...action.checkItems],
             }
         }
         default: {

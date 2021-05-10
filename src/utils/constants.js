@@ -29,3 +29,10 @@ export const COMPLETED_STATUS = {
     color: "#CEBFE6",
     status: 'COMPLETED',
 };
+
+export const getProjectById = (projects, id) => {
+    projects = projects.filter((project) => {
+        return project.id === +id;
+    }); 
+    return projects[0];
+};

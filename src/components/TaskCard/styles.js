@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
     word-wrap: break-word;
     text-overflow: ellipsis;
     overflow: hidden;
-    height: 250px;
+    height: 180px;
     background-color: #FFF;
     border-radius: 15px;
     margin-top: 10px;
@@ -21,6 +21,7 @@ export const Header = styled.div`
     line-height: 17px;
     letter-spacing: 0.02em;
     color: #000;
+    cursor: pointer;
 `;
 
 export const Description = styled.div`

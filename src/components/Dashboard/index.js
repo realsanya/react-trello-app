@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as task from '../../redux/reducers/task';
 import * as data from '../../redux/reducers/data';
 import * as tokenService from "../../services/TokenService";
+import { getProjectById } from '../../utils/constants';
 
 import Sidebar from '../Sidebar';
 import Header from '../Header';
@@ -34,10 +35,12 @@ const Dashboard = (props) => {
         taskDeadline,
         setTasks, 
         dashboardId,
+        projects,
     } = props;
 
     let urlElements = window.location.href.split('/');
     const projectId = urlElements[4];
+    const project = getProjectById(projects, projectId);
 
     const [modalActive, setModalActive] = useState(false);
 
@@ -150,7 +153,7 @@ const Dashboard = (props) => {
                 <Sidebar />
                 <styled.Container>
                     <Header 
-                        title="Новый проект"
+                        title={project.name}
                         text={userInfo.role === 'USER' ? "Разработчик" : "Администратор"}
                         setModalActive={setModalActive} 
                         isDashboard

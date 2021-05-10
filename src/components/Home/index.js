@@ -19,6 +19,7 @@ import notFoundIcon from './icons/notFound.svg';
 const Home =  (props) => {
 
     const [modalActive, setModalActive] = useState(false);
+    const [addMemberModal, setAddMemberModal] = useState(false);
 
     const {
         userId,
@@ -34,7 +35,7 @@ const Home =  (props) => {
         api()
             .get("/projects",  {
                 params: {
-                userId,
+                    userId,
                 }
             })
             .then((response) => {
@@ -52,9 +53,14 @@ const Home =  (props) => {
         // TODO close modal window
     };
 
+    const addMember = () => {
+
+    }
+
     useEffect(() => {
         getProjects();
     }, []);
+
 
     const renderCreateProjectModal = () => {
         if (!modalActive) return null;

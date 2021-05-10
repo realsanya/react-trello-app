@@ -18,6 +18,14 @@ export const Header = styled.div`
     color: #000;
     border-bottom: 3px solid #E5E5E5;
     cursor: pointer;
+   
+    .link {
+        color: #000;
+        text-decoration: none;
+        :hover {
+            text-decoration: underline;
+        }
+    }
 `;
 
 export const Description = styled.div`

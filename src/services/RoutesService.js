@@ -9,6 +9,7 @@ import Home from '../components/Home';
 import Dashboard from '../components/Dashboard';
 import Support from '../components/Support';
 import Settings from '../components/Settings';
+import Default from '../components/Default';
 
 const routesData = [
     {
@@ -30,6 +31,11 @@ const routesData = [
       path: "/home",
       isExact: true,
       render: () => <Home />
+    },
+    {
+      path: "/dashboard",
+      isExact: true,
+      render: () => <Default />
     },
     {
         path: "/dashboard/:projectId/:dashboardId",

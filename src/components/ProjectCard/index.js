@@ -8,6 +8,7 @@ import * as data from '../../redux/reducers/data';
 
 import * as styled from './styles';
 import Modal from '../Modal';
+import AddMemberForm from './AddMemberForm';
 
 
 const ProjectCard = (props) => {
@@ -18,9 +19,11 @@ const ProjectCard = (props) => {
         userData, 
         dashboardId,
         setDashboard,
+        memberEmail,
     } = props;
 
     const [modalActive, setModalActive] = useState(false);
+    const [addMemberModal, setAddMemberModal] = useState(false);
 
     const getDashboard = () => {
         console.log('get dash');
@@ -34,17 +37,26 @@ const ProjectCard = (props) => {
         .then((response) => {
             setDashboard(response.data.id);
         });
-    }
+    };
 
     const postDelete = () => {
         api()
         .post("/project/delete",  {
             id,
         })
-    }
+    };
 
     const addMember = () => {
         console.log('add member');
+        console.log(memberEmail);
+        console.log(id);
+        api()
+            .post("/project/member/add", {
+                params: {
+                    projectId: id,
+                    memberEmail: memberEmail,
+                }
+            })
     }
 
     const deleteProject = () => {
@@ -54,6 +66,15 @@ const ProjectCard = (props) => {
             postDelete();
         }
     }
+
+    const renderAddMemberModal = () => {
+        if (!addMemberModal) return null;
+        return (
+            <Modal active={addMemberModal} setActive={setAddMemberModal}>
+                <AddMemberForm {...props} addMember={addMember} />
+            </Modal>
+        );
+    };
 
     const renderHaveNotAccessModal = () => {
        if (!modalActive) return null;
@@ -68,16 +89,21 @@ const ProjectCard = (props) => {
 
     return (
         <styled.Wrapper>
-            <styled.Header onClick={getDashboard}>
-                <Link to={{pathname: `/dashboard/${id}/${dashboardId}`}}> {data.name} </Link>
+            <styled.Header>
+                <div onClick={getDashboard}> 
+                    <Link className="link" to={{pathname: `/dashboard/${id}/${dashboardId}`}}> 
+                            {data.name} 
+                    </Link>
+                </div>
             </styled.Header>
             <styled.Description>
                 {data.description}
             </styled.Description>
             <styled.Actions>
-                <styled.Action onClick={addMember}>Добавить участников</styled.Action>
+                <styled.Action onClick={() => setAddMemberModal(true)}>Добавить участников</styled.Action>
                 <styled.Action onClick={deleteProject}>Удалить</styled.Action>
             </styled.Actions>
+            {renderAddMemberModal()}
             {renderHaveNotAccessModal()}
         </styled.Wrapper>
     );
@@ -89,12 +115,14 @@ const mapStateToProps = (state) => {
         dashboardId: state.data.dashboardId,
         description: state.data.description,
         name: state.data.name,
+        memberEmail: state.data.memberEmail,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         setDashboard: bindActionCreators(data.setDashboard, dispatch),
+        setMemberEmail: bindActionCreators(data.setMemberEmail, dispatch),
     }
 };
 
