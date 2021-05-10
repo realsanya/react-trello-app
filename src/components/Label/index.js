@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import * as styled from './styles';
 
 const Label = (props) => {
-    const {
-        type
+    const { 
+        type,
+        count,
     } = props;
 
     return (
@@ -13,7 +14,7 @@ const Label = (props) => {
                 <p>{type.title}</p>
             </styled.Title>
             <styled.Counter>
-                <p>4</p>
+                <p>{count}</p>
             </styled.Counter>
         </styled.Wrapper>
     );

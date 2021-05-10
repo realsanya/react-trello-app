@@ -5,14 +5,20 @@ import dateIcon from './icons/date.svg';
 import attachmentsIcon from './icons/attachments.svg';
 import commentsIcon from './icons/comments.svg';
 
-const TaskCard = () => {
+const TaskCard = (props) => {
+
+    const { 
+        task
+    } = props;
+
+
     return (
-        <styled.Wrapper>
+        <styled.Wrapper {...props}>
             <styled.Header>
-            YearCalendar: Календарь на год
+                {task.name}
             </styled.Header>
             <styled.Description>
-            Содержит календарь на текущий год. Перемещение по годам - по нажатию на стрелки значка календаря.
+                {task.description}
             </styled.Description>
             <styled.Info>
                 <div className="deadline">

@@ -27,6 +27,14 @@ export const Workspace = styled.div`
     justify-content: space-between;
 `;
 
+export const Column = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: calc(100%/4);
+    height: 100%;
+    margin: 20px 15px;
+`;
+
 // export const Header = styled.div`
 //     display: flex;
 //     width: 100%;
