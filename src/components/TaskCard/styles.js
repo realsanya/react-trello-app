@@ -58,6 +58,7 @@ export const Info = styled.div`
     .attachments {
         display: flex;
         flex-direction: row;
+        cursor: pointer;
         p {
             font-family: 'Rubik Light';
             font-style: normal;
@@ -73,6 +74,8 @@ export const Info = styled.div`
     .comments {
         display: flex;
         flex-direction: row;
+        cursor: pointer;
+
         p {
             font-family: 'Rubik Light';
             font-style: normal;

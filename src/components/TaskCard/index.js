@@ -6,17 +6,31 @@ import attachmentsIcon from './icons/attachments.svg';
 import commentsIcon from './icons/comments.svg';
 import Modal from '../Modal';
 import TaskView from './TaskView';
+import CommentView from './CommentView';
+import AttachmentView from './AttachmentView';
+import api from '../../axios/api-config';
 
 const TaskCard = (props) => {
 
     const { 
-        task
+        task,
     } = props;
 
+
     const [taskViewModal, setTaskViewModal] = useState(false);
+    const [attachmentModal, setAttachmentModal] = useState(false);
+    const [commentModal, setCommentModal] = useState(false);
+
+    const getComment = () => {
+        api()
+            .get(("/comments"), {
+                params: {
+                    taskId: task.id,
+                }
+            })
+    }
 
     const renderTaskView = () => {
-        console.log('render');
         if (!taskViewModal) return null;
         return (
             <Modal active={taskViewModal} setActive={setTaskViewModal}>
@@ -25,6 +39,24 @@ const TaskCard = (props) => {
         );
     };
 
+    const renderAttachmentModal = () => {
+        if (!attachmentModal) return null;
+        return (
+            <Modal active={attachmentModal} setActive={setAttachmentModal}>
+                <AttachmentView task={task} />
+            </Modal>
+        );
+    };
+    
+    const renderCommentModal = () => {
+        const comments = getComment();
+        if (!commentModal) return null;
+        return (
+            <Modal active={commentModal} setActive={setCommentModal}>
+                <CommentView task={task} comments={comments} />
+            </Modal>
+        );
+    };
 
     return (
         <styled.Wrapper {...props}>
@@ -39,16 +71,18 @@ const TaskCard = (props) => {
                     <img src={dateIcon}/>
                     <p>Июль 1</p>
                 </div>
-                <div className="attachments">
+                <div className="attachments" onClick={() => setAttachmentModal(true)}>
                     <img src={attachmentsIcon}/>
                     <p>1</p>
                 </div>
-                <div className="comments">
+                <div className="comments" onClick={() => setCommentModal(true)}>
                     <img src={commentsIcon}/>
                     <p>2</p>
                 </div>
             </styled.Info>
             {renderTaskView()}
+            {renderAttachmentModal()}
+            {renderCommentModal()}
         </styled.Wrapper>
     );
 }
