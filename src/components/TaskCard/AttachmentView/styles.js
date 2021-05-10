@@ -6,13 +6,24 @@ export const Wrapper = styled.div`
     word-wrap: break-word;
     text-overflow: ellipsis;
     overflow: hidden;
-    height: 500px;
+    height: 250px;
     width: 500px;
     background-color: #FFF;
     padding: 10px;
+
+    p {
+        font-family: 'Rubik Medium';
+        font-style: normal;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 20px;
+        color: #706767;
+    }
 `;
 
 export const Header = styled.div`
+    display: flex;
+    justify-content: space-between;
     width: 90%;
     font-family: 'Rubik Medium';
     font-style: normal;
@@ -24,46 +35,15 @@ export const Header = styled.div`
     cursor: pointer;
 `;
 
-export const List = styled.div`
-    height: 370px;
-    font-family: 'Rubik Light';
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 24px;
-    color: #000;
-    margin-top: 15px;
-`;
-
 export const Action = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     height: 50px;
+    margin-top: 10px;
 `;
 
-export const Input = styled.div`
-    width: 290px;
-    height: 40px;
-    background-color: #D3D3D3;
-    outline: none;
-    border: none;
-    border-radius: 20px;
-    font-size: 30px;
-    font-weight: 300;
-    color: #706767;
-    padding:  5px 20px;
-
-    ::placeholder,
-    ::-webkit-input-placeholder {
-        text-align: left;
-        align-items: center;
-        color: ${(props) => (props.error ? '#E8435A' : '#706767')};
-        font-weight: ${(props) => (props.error ? '500' : '300')};
-        font-size: ${(props) => (props.error ? '16px' : '30px')};
-    }
-`;
 
 export const Button = styled.div`
     display: flex;

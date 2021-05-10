@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import * as styled from './styles';
 import dateIcon from './icons/date.svg';
@@ -73,7 +73,6 @@ const TaskCard = (props) => {
                 </div>
                 <div className="attachments" onClick={() => setAttachmentModal(true)}>
                     <img src={attachmentsIcon}/>
-                    <p>1</p>
                 </div>
                 <div className="comments" onClick={() => setCommentModal(true)}>
                     <img src={commentsIcon}/>

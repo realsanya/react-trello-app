@@ -1,63 +1,109 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from '../../../axios/api-config';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as task from '../../../redux/reducers/task';
+import * as auth from '../../../redux/reducers/auth';
 
 import * as styled from './styles';
 
 const AttachmentView = (props) => {
     const {
+        userId,
         task,
-        setCheckItems,
-        checkItems,
     } = props;
 
-    const getCheckItems = () => {
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [attachments, setAttachments] = useState(null);
+
+    const getAttachments = () => {
         api()
-            .get(("/check/all"),{
+            .get(("/attachments"),{
                 params: {
                     taskId: task.id,
                 }
             })
             .then((response) => {
-                // console.log(response.data.content);
-                setCheckItems(response.data.content);
+                setAttachments(response.data.content);
             });
     }
 
     useEffect (() => {
-        getCheckItems();
+        getAttachments();
     }, []);
 
-    console.log(checkItems);
+    const onFileChange = (e) => {
+        setSelectedFile(e.target.files[0]);
+    };
+
+    const onFileUpload = () => {
+        const formData = new FormData();
+        formData.append(
+            "myFile",
+            selectedFile,
+            selectedFile.name,
+            task.id,
+        );
+        api()
+            .post(("/uploadfile"),{
+                taskId: task.id,
+                path: selectedFile.name,
+                type: selectedFile.type,
+            });
+    };
+
+    const fileData = () => {
+        if (selectedFile) {
+            return (
+              <div>
+                <h2>Детали файла:</h2>
+                <p>Имя: {selectedFile.name}</p>
+                <p>Тип: {selectedFile.type}</p>
+                <p>
+                  Последнее изменение:{" "}
+                  {selectedFile.lastModifiedDate.toDateString()}
+                </p>
+              </div>
+            );
+          } else {
+            return (
+              <div>
+                <br />
+                    <h4>Выберите файл прежде чем нажать кнопку</h4>
+              </div>
+            );
+          }
+    };
+  
     return (
         <styled.Wrapper>
             <styled.Header>
-                Вложения к задаче
+                <p>
+                    Вложения к задаче
+                </p>
             </styled.Header>
-            <styled.List>
-                listlist
-            </styled.List>
             <styled.Action>
-                <styled.Input />
-                <styled.Button>
-                    Отправить
+                <input type="file" onChange={onFileChange} />
+                <styled.Button onClick={onFileUpload}>
+                    Загрузить
                 </styled.Button>
             </styled.Action>
+            <p>{fileData()}</p>
+            {attachments && (
+                <p>Всего вложений: {attachments.length}</p>
+            )}
         </styled.Wrapper>
     );
 };
 
 const mapStateToProps = (state) => {
     return {
-        checkItems: state.task.checkItems,
+        userId: state.auth.userId,
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return{
-        setCheckItems: bindActionCreators(task.setCheckItems, dispatch),
+    return {
     }
 };
 
