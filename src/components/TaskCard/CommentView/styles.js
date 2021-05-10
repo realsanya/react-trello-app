@@ -10,6 +10,15 @@ export const Wrapper = styled.div`
     width: 500px;
     background-color: #FFF;
     padding: 10px;
+    p {
+        font-family: 'Rubik Medium';
+        font-style: normal;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 20px;
+        color: #706767;
+        margin-left: 5px;
+    }
 `;
 
 export const Header = styled.div`
@@ -25,7 +34,7 @@ export const Header = styled.div`
 `;
 
 export const List = styled.div`
-    height: 370px;
+    height: 340px;
     font-family: 'Rubik Light';
     font-style: normal;
     font-weight: normal;

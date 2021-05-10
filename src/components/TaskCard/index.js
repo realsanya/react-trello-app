@@ -21,15 +21,6 @@ const TaskCard = (props) => {
     const [attachmentModal, setAttachmentModal] = useState(false);
     const [commentModal, setCommentModal] = useState(false);
 
-    const getComment = () => {
-        api()
-            .get(("/comments"), {
-                params: {
-                    taskId: task.id,
-                }
-            })
-    }
-
     const renderTaskView = () => {
         if (!taskViewModal) return null;
         return (
@@ -49,11 +40,10 @@ const TaskCard = (props) => {
     };
     
     const renderCommentModal = () => {
-        const comments = getComment();
         if (!commentModal) return null;
         return (
             <Modal active={commentModal} setActive={setCommentModal}>
-                <CommentView task={task} comments={comments} />
+                <CommentView task={task}/>
             </Modal>
         );
     };
@@ -76,7 +66,6 @@ const TaskCard = (props) => {
                 </div>
                 <div className="comments" onClick={() => setCommentModal(true)}>
                     <img src={commentsIcon}/>
-                    <p>2</p>
                 </div>
             </styled.Info>
             {renderTaskView()}

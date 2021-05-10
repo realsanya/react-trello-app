@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from '../../../axios/api-config';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as task from '../../../redux/reducers/task';
+import * as userId from '../../../redux/reducers/auth';
 
 import * as styled from './styles';
 import CheckItem from '../CheckItem';
@@ -10,42 +11,74 @@ import CheckItem from '../CheckItem';
 const CommentView = (props) => {
     const {
         task,
-        setCheckItems,
-        checkItems,
+        userId,
     } = props;
 
-    const getCheckItems = () => {
+    const [comments, setComments] = useState(null);
+    const [comment, setComment] = useState("");
+
+    const getComments = () => {
         api()
-            .get(("/check/all"),{
+            .get(("/comments"), {
                 params: {
                     taskId: task.id,
                 }
             })
             .then((response) => {
-                // console.log(response.data.content);
-                setCheckItems(response.data.content);
+                setComments(response.data.content);
             });
     }
 
     useEffect (() => {
-        getCheckItems();
+        getComments();
     }, []);
 
-    console.log(checkItems);
+    const onCommentChange = (ev) => {
+        setComment(ev.target.value);
+    };
+
+    const sendComment = () => {
+        api()
+        .post(("/comment/add"), {
+            params: {
+                taskId: task.id,
+                userId,
+                comment,
+            }
+        })
+    };
+
     return (
         <styled.Wrapper>
             <styled.Header>
                 Комментарии к задаче
             </styled.Header>
-            <styled.List>
-                listlist
-            </styled.List>
+            {comments && (
+                <styled.List>
+                    {comments.map((comment) => {
+                        console.log(comment);
+                        return(
+                            <div key={comment.id}>
+                                <p>{comment.text}</p>
+                            </div>
+                        )
+                    })}
+                </styled.List>
+            )}
             <styled.Action>
-                <styled.Input />
-                <styled.Button>
+                <styled.Input 
+                    value={comment}
+                    type="email"
+                    placeholder="Введите комментарий" 
+                    onChange={onCommentChange} 
+                />
+                <styled.Button onClick={sendComment}>
                     Отправить
                 </styled.Button>
             </styled.Action>
+            {comments && (
+                <p> Всего комментариев: {comments.length}</p>
+            )}
         </styled.Wrapper>
     );
 };
@@ -53,6 +86,7 @@ const CommentView = (props) => {
 const mapStateToProps = (state) => {
     return {
         checkItems: state.task.checkItems,
+        userId: state.auth.userId,
     };
 }
 
