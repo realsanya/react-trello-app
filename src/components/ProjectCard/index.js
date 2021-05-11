@@ -26,7 +26,6 @@ const ProjectCard = (props) => {
     const [addMemberModal, setAddMemberModal] = useState(false);
 
     const getDashboard = () => {
-        console.log('get dash');
         api()
         .get("/dashboard",  {
             params: {
@@ -47,15 +46,10 @@ const ProjectCard = (props) => {
     };
 
     const addMember = () => {
-        console.log('add member');
-        console.log(memberEmail);
-        console.log(id);
         api()
             .post("/project/member/add", {
-                params: {
-                    projectId: id,
-                    memberEmail: memberEmail,
-                }
+                projectId: id,
+                memberEmail: memberEmail,    
             })
     }
 

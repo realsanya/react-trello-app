@@ -16,6 +16,7 @@ const TaskCard = (props) => {
         task,
     } = props;
 
+    const taskDeadline = task.dateOfEnd.substr(0, 10);
 
     const [taskViewModal, setTaskViewModal] = useState(false);
     const [attachmentModal, setAttachmentModal] = useState(false);
@@ -59,7 +60,7 @@ const TaskCard = (props) => {
             <styled.Info>
                 <div className="deadline">
                     <img src={dateIcon}/>
-                    <p>Июль 1</p>
+                    <p>{taskDeadline}</p>
                 </div>
                 <div className="attachments" onClick={() => setAttachmentModal(true)}>
                     <img src={attachmentsIcon}/>

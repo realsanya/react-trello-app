@@ -3,10 +3,9 @@ import api from '../../../axios/api-config';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as task from '../../../redux/reducers/task';
-import * as userId from '../../../redux/reducers/auth';
+import * as auth from '../../../redux/reducers/auth';
 
 import * as styled from './styles';
-import CheckItem from '../CheckItem';
 
 const CommentView = (props) => {
     const {

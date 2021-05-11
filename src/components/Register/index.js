@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import api from '../../axios/api-config';
@@ -131,7 +131,7 @@ const Register = (props) => {
             ) : (
                 <styled.Wrapper>
                     <styled.Header>
-                        <h1>Регистрация</h1>
+                          <h1>Регистрация</h1>
                         <Form
                             { ...props }
                             send={sendRegister}  />

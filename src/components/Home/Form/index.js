@@ -12,8 +12,8 @@ const Form = (props) => {
         create,
     } = props;
 
-    const [nameValue, setNameValue] = useState(name);
-    const [descriptionValue, setDescriptionValue] = useState(description);
+    const [nameValue, setNameValue] = useState("");
+    const [descriptionValue, setDescriptionValue] = useState("");
 
     const onNameChange = (ev) => {
         setNameValue(ev.target.value);
