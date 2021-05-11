@@ -22,10 +22,19 @@ const TaskView = (props) => {
                 }
             })
             .then((response) => {
-                // console.log(response.data.content);
                 setCheckItems(response.data.content);
             });
     }
+
+    const archiveTask = () => {
+        api()
+        .post(("/task/archive"), {
+            params: {
+                taskId: task.id
+            }
+        })
+    }
+
 
     useEffect (() => {
         getCheckItems();
@@ -43,11 +52,11 @@ const TaskView = (props) => {
             <styled.CheckList>
                 {checkItems.map((item) => {
                     return (
-                        <CheckItem item={item} />
+                        <CheckItem key={item.id} item={item} />
                     );
                 })}
             </styled.CheckList>
-            <styled.Action>
+            <styled.Action onClick={archiveTask}>
                 Архивировать
             </styled.Action>
         </styled.Wrapper>
