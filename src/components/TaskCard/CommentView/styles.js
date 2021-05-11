@@ -52,7 +52,7 @@ export const Action = styled.div`
     height: 50px;
 `;
 
-export const Input = styled.div`
+export const Input = styled.input`
     width: 290px;
     height: 40px;
     background-color: #D3D3D3;

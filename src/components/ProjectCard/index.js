@@ -24,6 +24,7 @@ const ProjectCard = (props) => {
 
     const [modalActive, setModalActive] = useState(false);
     const [addMemberModal, setAddMemberModal] = useState(false);
+    const [redirect, setRedirect] = useState(false);
 
     const getDashboard = () => {
         api()
@@ -35,6 +36,7 @@ const ProjectCard = (props) => {
         })
         .then((response) => {
             setDashboard(response.data.id);
+            setRedirect(true);
         });
     };
 
@@ -81,14 +83,15 @@ const ProjectCard = (props) => {
        );
     }
 
+    const path = redirect ? `/dashboard/${id}/${dashboardId}` : '/home';
     return (
         <styled.Wrapper>
             <styled.Header>
+                    <Link className="link" to={{pathname: path}}> 
                 <div onClick={getDashboard}> 
-                    <Link className="link" to={{pathname: `/dashboard/${id}/${dashboardId}`}}> 
-                            {data.name} 
-                    </Link>
+                        {data.name} 
                 </div>
+                    </Link>
             </styled.Header>
             <styled.Description>
                 {data.description}

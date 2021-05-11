@@ -14,7 +14,7 @@ const CommentView = (props) => {
     } = props;
 
     const [comments, setComments] = useState(null);
-    const [comment, setComment] = useState("");
+    const [comment, setComment] = useState(null);
 
     const getComments = () => {
         api()
@@ -38,12 +38,12 @@ const CommentView = (props) => {
 
     const sendComment = () => {
         api()
-        .post(("/comment/add"), {
-            params: {
+        .post(("/comments/add"), {
+            // params: {
                 taskId: task.id,
-                userId,
-                comment,
-            }
+                userId: userId,
+                text: comment,
+            // }
         })
     };
 
